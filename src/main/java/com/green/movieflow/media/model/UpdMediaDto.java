@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class updMediaDto {
+public class UpdMediaDto {
     private int iuser;
     private int imedia;
     private String title;
