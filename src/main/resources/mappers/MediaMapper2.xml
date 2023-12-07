@@ -16,4 +16,17 @@
         WHERE imedia = #{imedia}
         AND iuser = #{iuser}
     </delete>
+    <select id="selMediaAll">
+        SELECT A.imedia, A.title, A.date, A.star, B.pic
+        FROM t_media A
+        JOIN (
+        SELECT imedia, pic
+        FROM t_media_pics
+        ORDER BY imedia_pics ASC
+        LIMIT 0,1
+        ) B
+        ON A.imedia = B.imedia
+        WHERE A.iuser = #{iuser}
+        AND A.issaw = #{issaw}
+    </select>
 </mapper>
