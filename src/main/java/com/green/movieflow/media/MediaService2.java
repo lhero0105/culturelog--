@@ -15,7 +15,7 @@ public class MediaService2 {
         // 셀렉트로 있는지 확인 먼저
         Integer imedia = mapper.selMedia(dto);
         if(imedia == null){
-            return new ResVo(0);
+            return new ResVo(0);//
         }
         mapper.delMediaPics(dto);
         mapper.delMedia(dto);
