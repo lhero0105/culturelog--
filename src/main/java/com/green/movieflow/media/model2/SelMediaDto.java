@@ -1,9 +1,11 @@
 package com.green.movieflow.media.model2;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
-@Data
+@Builder
+@Getter
 public class SelMediaDto {
+    private int imedia;
     private int iuser;
-    private int issaw;
 }

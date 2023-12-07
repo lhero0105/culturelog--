@@ -1,16 +1,16 @@
 package com.green.movieflow.media;
 
-import com.green.movieflow.media.model2.DelMediaDto;
-import com.green.movieflow.media.model2.SelMediaDto;
-import com.green.movieflow.media.model2.SelMediaVo;
+import com.green.movieflow.media.model2.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface MediaMapper2 {
-    Integer selMedia(DelMediaDto dto);
+    Integer selMediaByDelMedia(DelMediaDto dto);
     int delMediaPics(DelMediaDto dto);
     int delMedia(DelMediaDto dto);
-    List<SelMediaVo> selMediaAll(SelMediaDto dto);
+    List<SelMediaAllVo> selMediaAll(SelMediaAllDto dto);
+    SelMediaVo selMedia(SelMediaDto dto);
+    List<SelMediaPicsProcVo> selMediaPics(SelMediaDto dto);
 }

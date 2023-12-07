@@ -1,13 +1,16 @@
 package com.green.movieflow.media.model2;
 
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class SelMediaVo {
     private int imedia;
     private String title;
+    private String comment;
     private String date;
-    private String pic;
+    private List<String> pics;
+    private int issaw;
     private int star;
 }

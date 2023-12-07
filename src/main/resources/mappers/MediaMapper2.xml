@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.movieflow.media.MediaMapper2">
-    <select id="selMedia">
+    <select id="selMediaByDelMedia">
         SELECT imedia FROM t_media
         WHERE iuser = #{iuser}
         AND imedia = #{imedia}
@@ -28,5 +28,15 @@
         ON A.imedia = B.imedia
         WHERE A.iuser = #{iuser}
         AND A.issaw = #{issaw}
+    </select>
+    <select id="selMedia">
+        SELECT imedia, title, comment, date, issaw, star
+        FROM t_media
+        WHERE imedia = #{imedia}
+        AND iuser = #{iuser}
+    </select>
+    <select id="selMediaPics">
+        SELECT imedia, pic FROM t_media_pics
+        WHERE imedia = #{imedia}
     </select>
 </mapper>
