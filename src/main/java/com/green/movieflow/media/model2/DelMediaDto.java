@@ -1,4 +1,4 @@
-package com.green.movieflow.media.model;
+package com.green.movieflow.media.model2;
 
 import lombok.Data;
 

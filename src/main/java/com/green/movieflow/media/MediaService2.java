@@ -1,7 +1,5 @@
 package com.green.movieflow.media;
 
-import com.green.movieflow.common.ResVo;
-import com.green.movieflow.media.model.DelMediaDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
