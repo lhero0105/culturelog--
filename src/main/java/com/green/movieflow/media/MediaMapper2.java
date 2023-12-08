@@ -7,12 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface MediaMapper2 {
+    List<SelMediaVo> selMediaAll(MidiaAllSelDto dto);
+    List<SelMediaPicsProcVo> selMediapic(List<Integer> imediaList);
     Integer selMediaByDelMedia(DelMediaDto dto);
     int delMediaPics(DelMediaDto dto);
     int delMedia(DelMediaDto dto);
-    List<SelMediaAllVo> selMediaAll(SelMediaAllDto dto);
-    SelMediaVo selMedia(SelMediaDto dto);
-    //List<SelMediaPicsProcVo> selMediaPics(SelMediaDto dto);
+    List<SelMediaAllVo> selMedia(SelMediaAllDto dto);
+    SelMediaDetailVo selDetailMedia(SelMediaDto dto);
     List<String> selMediaPics(SelMediaDto dto);
 
 }

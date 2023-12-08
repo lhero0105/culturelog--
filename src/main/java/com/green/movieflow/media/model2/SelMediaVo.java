@@ -1,16 +1,16 @@
 package com.green.movieflow.media.model2;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class SelMediaVo {
     private int imedia;
-    private String title;
-    private String comment;
-    private String date;
-    private List<String> pics;
-    private int issaw;
-    private int star;
+    private int day;
+    @JsonIgnore
+    private List<String> pics = new ArrayList<>();
+    private String pic;
 }

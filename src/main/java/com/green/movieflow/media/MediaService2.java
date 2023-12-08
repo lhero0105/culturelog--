@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -18,19 +17,40 @@ import java.util.Map;
 public class MediaService2 {
     private final MediaMapper2 mapper;
 
-
-
-
-
-    // 마이페이지 리스트
-    public List<SelMediaAllVo> getMediaAll(SelMediaAllDto dto){
-        // 쿼리문으로 첫사진만 빼오도록 하여 다 담김
-        List<SelMediaAllVo> list = mapper.selMediaAll(dto);
+    // 메인페이지
+    public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
+        List<SelMediaVo> list = mapper.selMediaAll(dto);
+        List<Integer> imediaList = new ArrayList<>();
+        HashMap<Integer, SelMediaVo> mediaMap = new HashMap<>();
+        for ( SelMediaVo vo : list ) {
+            imediaList.add(vo.getImedia());
+            mediaMap.put(vo.getImedia(), vo);
+        }
+        List<SelMediaPicsProcVo> pics = mapper.selMediapic(imediaList);
+        for ( SelMediaPicsProcVo pic : pics ) {
+            SelMediaVo vo = mediaMap.get(pic.getImedia());
+            List<String> strpics = vo.getPics();
+            strpics.add(pic.getPic());
+        }
+        for ( SelMediaVo vo : list ) {
+            while (vo.getPics().size() > 1){
+                vo.getPics().remove(vo.getPics().size() - 1);
+            }
+            vo.setPic(vo.getPics().get(0));
+        }
         return list;
     }
 
-    public SelMediaVo getMedia(SelMediaDto dto){
-        SelMediaVo vo = mapper.selMedia(dto);
+    // 마이페이지
+    public List<SelMediaAllVo> getMedia(SelMediaAllDto dto){
+        // 쿼리문으로 첫사진만 빼오도록 하여 다 담김
+        List<SelMediaAllVo> list = mapper.selMedia(dto);
+        return list;
+    }
+
+    // 상세페이지
+    public SelMediaDetailVo getDetailMedia(SelMediaDto dto){
+        SelMediaDetailVo vo = mapper.selDetailMedia(dto);
         List<String> pics = mapper.selMediaPics(dto);
         vo.setPics(pics);
         return vo;

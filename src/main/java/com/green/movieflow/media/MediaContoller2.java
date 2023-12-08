@@ -14,29 +14,22 @@ import java.util.List;
 @RequestMapping("/api/media")
 public class MediaContoller2 {
     private final MediaService2 service;
-    // 메인페이지 - 년월 데이터값 타입을 맞추어야 해서 나중에 작성..
-
-/*    @GetMapping("/ym")
-    public ?? getAllMedia(MidiaAllSelDto dto){
-
-    }*/
-
-
-
-
-
-
-
-    // 마이페이지 리스트 셀렉트
-    @GetMapping
-    public List<SelMediaAllVo> getMediaAll(SelMediaAllDto dto){
+    // 메인페이지
+    @GetMapping("/ym")
+    public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
         return service.getMediaAll(dto);
     }
 
-    // 상세 페이지
+    // 마이페이지
+    @GetMapping
+    public List<SelMediaAllVo> getMedia(SelMediaAllDto dto){
+        return service.getMedia(dto);
+    }
+
+    // 상세페이지
     @GetMapping("/{imedia}")
-    public SelMediaVo getMedia(@PathVariable int imedia, int iuser){
-        return service.getMedia(SelMediaDto.builder()
+    public SelMediaDetailVo getDetailMedia(@PathVariable int imedia, int iuser){
+        return service.getDetailMedia(SelMediaDto.builder()
                 .imedia(imedia)
                 .iuser(iuser)
                 .build());
@@ -47,5 +40,4 @@ public class MediaContoller2 {
     public ResVo2 delMedia(DelMediaDto dto){
         return service.delMedia(dto);
     }
-
 }

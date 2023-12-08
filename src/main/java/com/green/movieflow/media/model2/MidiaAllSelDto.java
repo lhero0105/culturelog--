@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class MidiaAllSelDto {
     private int iuser;
-    private int ym;
+    private String ym; // ex) 2023-12
 }
