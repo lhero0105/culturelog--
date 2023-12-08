@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/media")
 public class MediaContoller2 {
     private final MediaService2 service;
+
     // 메인페이지
     @GetMapping("/ym")
     public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){

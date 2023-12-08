@@ -1,8 +1,6 @@
 package com.green.movieflow.media;
 
-import com.green.movieflow.media.model.InsMediaDto;
-import com.green.movieflow.media.model.MediaSelVo;
-import com.green.movieflow.media.model.UpdMediaDto;
+import com.green.movieflow.media.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +10,9 @@ public interface MediaMapper {
 
     int insMedia(InsMediaDto dto);
 
+    int patchIsSaw(int isSaw);
+
     int updMedia(UpdMediaDto dto);
 
-    public List<MediaSelVo> dayMedia(int iuser, int imedia);
+    List<MediaDaySelVo> dayMedia(MediaDaySelDto dto);
 }

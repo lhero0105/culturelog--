@@ -1,9 +1,7 @@
 package com.green.movieflow.media;
 
 import com.green.movieflow.common.ResVo;
-import com.green.movieflow.media.model.InsMediaDto;
-import com.green.movieflow.media.model.MediaSelVo;
-import com.green.movieflow.media.model.UpdMediaDto;
+import com.green.movieflow.media.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ import java.util.List;
 public class MediaService {
     private final MediaMapper mapper;
 
-    public ResVo insMedia(InsMediaDto dto){
+    public ResVo postMedia(InsMediaDto dto){
         mapper.insMedia(dto);
         return new ResVo(dto.getImedia());
     }
@@ -27,7 +25,11 @@ public class MediaService {
         return new ResVo(result);
     }
 
-    public List<MediaSelVo> dayMedia(int iuser, int imedia){
-        return mapper.dayMedia(iuser, imedia);
+    public List<MediaDaySelVo> dayMedia(MediaDaySelDto dto){
+        return mapper.dayMedia(dto);
+    }
+
+    public ResVo patchIsSaw(int isSaw){
+        return new ResVo(mapper.patchIsSaw(isSaw));
     }
 }
