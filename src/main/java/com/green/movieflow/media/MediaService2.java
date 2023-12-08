@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -28,11 +31,8 @@ public class MediaService2 {
 
     public SelMediaVo getMedia(SelMediaDto dto){
         SelMediaVo vo = mapper.selMedia(dto);
-        // n+1 허용 안하고 사진 넣기
-        List<SelMediaPicsProcVo> pics = mapper.selMediaPics(dto);
-        for ( SelMediaPicsProcVo pVo : pics ) {
-
-        }
+        List<String> pics = mapper.selMediaPics(dto);
+        vo.setPics(pics);
         return vo;
     }
 

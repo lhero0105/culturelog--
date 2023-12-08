@@ -12,5 +12,7 @@ public interface MediaMapper2 {
     int delMedia(DelMediaDto dto);
     List<SelMediaAllVo> selMediaAll(SelMediaAllDto dto);
     SelMediaVo selMedia(SelMediaDto dto);
-    List<SelMediaPicsProcVo> selMediaPics(SelMediaDto dto);
+    //List<SelMediaPicsProcVo> selMediaPics(SelMediaDto dto);
+    List<String> selMediaPics(SelMediaDto dto);
+
 }

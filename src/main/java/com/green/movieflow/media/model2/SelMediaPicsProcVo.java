@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class SelMediaPicsProcVo {
-    private int imedia;
+    // private int imedia;
     private String pic;
 }
