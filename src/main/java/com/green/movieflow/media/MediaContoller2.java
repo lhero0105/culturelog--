@@ -36,7 +36,7 @@ public class MediaContoller2 {
                 .build());
     }
 
-    // 미디어 삭제
+    // 미디어삭제
     @DeleteMapping
     public ResVo2 delMedia(DelMediaDto dto){
         return service.delMedia(dto);
