@@ -31,7 +31,7 @@ public class MediaContoller {
     // iuser, date
     @GetMapping("day")
     public List<MediaDaySelVo> getDayMedia(int iuser, String date){
-        return service.dayMedia(MediaDaySelDto.builder()
+        return service.getDayMedia(MediaDaySelDto.builder()
                         .iuser(iuser)
                         .date(date)
                         .build());
@@ -40,7 +40,7 @@ public class MediaContoller {
     // issaw(볼것, 본것) (보류사유 - dto 받을 값 추가해야 한다고 생각)
     // issaw, imedia, iuser
     @PatchMapping
-    public ResVo patchIsSaw(MediaPatIssawDto dto){
+    public ResVo patchIsSaw(MediaPatIsSawDto dto){
         return service.patchIsSaw(dto);
     }
 

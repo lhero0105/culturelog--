@@ -10,7 +10,7 @@ public interface MediaMapper {
 
     int insMedia(InsMediaDto dto);
 
-    int patchIsSaw(MediaPatIssawDto dto);
+    int patchIsSaw(MediaPatIsSawDto dto);
 
     int updMedia(UpdMediaDto dto);
 

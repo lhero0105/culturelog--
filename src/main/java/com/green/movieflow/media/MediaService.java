@@ -5,7 +5,6 @@ import com.green.movieflow.media.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -25,11 +24,11 @@ public class MediaService {
         return new ResVo(result);
     }
 
-    public List<MediaDaySelVo> dayMedia(MediaDaySelDto dto){
+    public List<MediaDaySelVo> getDayMedia(MediaDaySelDto dto){
         return mapper.dayMedia(dto);
     }
 
-    public ResVo patchIsSaw(MediaPatIssawDto dto){
+    public ResVo patchIsSaw(MediaPatIsSawDto dto){
         return new ResVo(mapper.patchIsSaw(dto));
     }
 }

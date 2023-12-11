@@ -41,12 +41,28 @@
 
     <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
     <select id="dayMedia">
-
+        SELECT A.imedia, A.date, A.star, B.pic
+        FROM t_media A
+        JOIN (
+            SELECT B.imedia, A.pic
+            FROM t_media_pics A
+            JOIN t_media B
+            ON A.imedia = B.imedia
+            WHERE B.iuser = #{iuser}
+            AND B.date = '#{date}'
+            GROUP BY A.imedia
+        ) B
+        ON A.imedia = B.imedia
+        WHERE A.iuser = #{iuser}
+        AND A.date = '#{date}'
     </select>
 
     <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
     <update id="patchIsSaw">
-
+        UPDATE t_media
+        SET is_saw = #{isSaw}
+        WHERE imedia = #{imedia}
+        AND iuser = #{iuser}
     </update>
 
 </mapper>
