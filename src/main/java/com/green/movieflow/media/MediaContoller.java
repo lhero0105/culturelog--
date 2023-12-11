@@ -28,18 +28,20 @@ public class MediaContoller {
     }
 
     // 날짜별 media 리스트 (보류사유 - dto 받을 값 추가해야 한다고 생각)
+    // iuser, date
     @GetMapping("day")
-    public List<MediaDaySelVo> getDayMedia(int iuser, int imedia){
+    public List<MediaDaySelVo> getDayMedia(int iuser, String date){
         return service.dayMedia(MediaDaySelDto.builder()
                         .iuser(iuser)
-                        .imedia(imedia)
+                        .date(date)
                         .build());
     }
 
     // issaw(볼것, 본것) (보류사유 - dto 받을 값 추가해야 한다고 생각)
+    // issaw, imedia, iuser
     @PatchMapping
-    public ResVo patchIsSaw(int isSaw){
-        return service.patchIsSaw(isSaw);
+    public ResVo patchIsSaw(MediaPatIssawDto dto){
+        return service.patchIsSaw(dto);
     }
 
 }

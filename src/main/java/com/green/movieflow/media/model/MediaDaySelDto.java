@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class MediaDaySelDto {
     private int iuser;
-    private int imedia;
+    private String date;
 }

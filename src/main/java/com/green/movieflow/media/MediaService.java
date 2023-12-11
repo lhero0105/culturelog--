@@ -29,7 +29,7 @@ public class MediaService {
         return mapper.dayMedia(dto);
     }
 
-    public ResVo patchIsSaw(int isSaw){
-        return new ResVo(mapper.patchIsSaw(isSaw));
+    public ResVo patchIsSaw(MediaPatIssawDto dto){
+        return new ResVo(mapper.patchIsSaw(dto));
     }
 }
