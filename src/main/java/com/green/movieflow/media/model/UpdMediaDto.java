@@ -13,6 +13,6 @@ public class UpdMediaDto {
     private String date;
     private int star;
     private String comment;
+    private List<Integer> imediaPics;
     private List<String> pics;
-    private int isSaw;
 }
