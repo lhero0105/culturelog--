@@ -44,4 +44,32 @@ public class MediaContoller {
         return service.patchIsSaw(dto);
     }
 
+    //----------------------------------------------------------
+
+    // 메인페이지
+    @GetMapping("/ym")
+    public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
+        return service.getMediaAll(dto);
+    }
+
+    // 마이페이지
+    @GetMapping
+    public List<SelMediaAllVo> getMedia(SelMediaAllDto dto){
+        return service.getMedia(dto);
+    }
+
+    // 상세페이지
+    @GetMapping("/{imedia}")
+    public SelMediaDetailVo getDetailMedia(@PathVariable int imedia, int iuser){
+        return service.getDetailMedia(SelMediaDto.builder()
+                .imedia(imedia)
+                .iuser(iuser)
+                .build());
+    }
+
+    // 미디어삭제
+    @DeleteMapping
+    public ResVo delMedia(DelMediaDto dto){
+        return service.delMedia(dto);
+    }
 }

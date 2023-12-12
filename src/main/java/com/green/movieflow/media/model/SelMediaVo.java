@@ -1,4 +1,4 @@
-package com.green.movieflow.media.model2;
+package com.green.movieflow.media.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
