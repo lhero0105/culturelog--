@@ -22,34 +22,18 @@ public class MediaService {
         mapper.insMedia(dto);
         return new ResVo(dto.getImedia());
     }
-
-    public ResVo putMedia(UpdMediaDto dto){
-        int result = mapper.updMedia(dto);
-
-        if(dto.getImediaPics().size() == 0){
-            InsMediaDto mediaDto = new InsMediaDto();
-            mediaDto.setPics(dto.getPics());
-            mediaDto.setImedia(dto.getImedia());
-            mapper.insMediaPics(mediaDto);
-
+    public ResVo putMedia(PutMedia dto){
+        mapper.putMedia(dto);
+        if (dto.getPics().size() >0){
+            DelMediaDto dto1 = new DelMediaDto();
+            dto1.setImedia(dto.getImedia());
+            mapper.DelMediaPics(dto1);
+            InsMediaDto dto2 = new InsMediaDto();
+            dto2.setImedia(dto.getImedia());
+            dto2.setPics(dto.getPics());
+            mapper.insMediaPics(dto2);
         }
-
-        if(dto.getImediaPics().size() > 0){
-            UpdMediaPicsDto dto1 = new UpdMediaPicsDto();
-            Map<Integer, UpdMediaPicsDto> Map = new HashMap();
-            for (int i = 0; i < dto.getImediaPics().size(); i++) {
-                Map.put(dto.getImediaPics().get(i), dto1);
-
-            }
-            for (int i = 0; i < dto.getImediaPics().size(); i++){
-
-                mapper.updMediaPics(Map);
-            } {
-
-            }
-            return new ResVo(Const.SUCCESS);
-        }
-        return new ResVo(result);
+        return new ResVo(Const.SUCCESS);
     }
 
     public List<MediaDaySelVo> getDayMedia(MediaDaySelDto dto){

@@ -26,26 +26,36 @@
         </foreach>
     </update>
 
-    <update id="updMedia">
+    <update id="putMedia">
         UPDATE t_media
-        SET iuser = #{iuser}
-        <if test="title != null and title != '' ">
-            , title = #{title}
+        SET
+        <if test="genrepk > 0">
+            genrepk = #{genrepk}
         </if>
-        <if test="genre > 0">
-            , genre = #{genre}
+        <if test="title !=null and title !=''">
+            ,title = #{title}
         </if>
-        <if test="date != null  and date != '' ">
-            , date = #{date}
+        <if test="date !=null and date !=''">
+            ,date = #{date}
+        </if>
+        <if test="comment !=null and comment !=''">
+            ,comment = #{comment}
         </if>
         <if test="star > 0">
-            , star = #{star}
+            ,star = #{star}
         </if>
-        <if test=" comment != null and comment != '' ">
-            , comment = #{comment}
+        <if test="isSaw == 0 or isSaw == 1">
+            ,is_saw = #{isSaw}
         </if>
         WHERE imedia = #{imedia}
+        AND iuser = #{iuser}
     </update>
+
+    <delete id="DelMediaPics">
+        DELETE
+        FROM t_media_pics
+        WHERE imedia = #{imedia}
+    </delete>
 
     <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
     <select id="dayMedia">

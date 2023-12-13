@@ -11,11 +11,12 @@ public interface MediaMapper {
 
     int insMedia(InsMediaDto dto);
     int insMediaPics(InsMediaDto dto);
-    int updMediaPics(Map<Integer, UpdMediaPicsDto> map);
 
     int patchIsSaw(MediaPatIsSawDto dto);
 
-    int updMedia(UpdMediaDto dto);
+    int putMedia(PutMedia dto);
+
+    int DelMediaPics(DelMediaDto dto);
 
     List<MediaDaySelVo> dayMedia(MediaDaySelDto dto);
 

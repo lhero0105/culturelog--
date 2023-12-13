@@ -23,7 +23,7 @@ public class MediaContoller {
 
     // 미디어 수정
     @PutMapping
-    public ResVo putMedia(@RequestBody UpdMediaDto dto){
+    public ResVo putMedia(@RequestBody PutMedia dto){
         return service.putMedia(dto);
     }
 

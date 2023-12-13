@@ -1,18 +1,19 @@
 package com.green.movieflow.media.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class UpdMediaDto {
-    private int iuser;
+@Schema(title = "미디어 수정 데이터")
+public class PutMedia {
     private int imedia;
+    private int iuser;
+    private int genrepk;
     private String title;
-    private int genre;
     private String date;
-    private int star;
     private String comment;
-    private List<Integer> imediaPics;
+    private int star;
     private List<String> pics;
 }
