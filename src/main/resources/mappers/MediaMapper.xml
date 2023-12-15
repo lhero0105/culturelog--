@@ -7,7 +7,7 @@
         INSERT INTO t_media
         SET iuser = #{iuser}
         , title = #{title}
-        , genre = #{genre}
+        , genrepk = #{genrepk}
         , date = #{date}
         <if test="star > 0">
             , star = #{star}
@@ -15,17 +15,17 @@
         <if test="comment != null">
             , comment = #{comment}
         </if>
-        , isSaw = #{isSaw}
+        , is_saw = #{isSaw}
     </insert>
 
-    <update id="updMediaPics" parameterType="java.util.Map">
-        UPDATE t_media_pics
-        (imedia_pics, pic)
+    <insert id="postMediaPics">
+        INSERT INTO t_media_pics
+        (imedia, pic)
         VALUES
-        <foreach collection="list" item="item" open="(" separator="),(" close=")">
-            #{item.imediaPics}, #{item.pics})
+        <foreach collection="pics" item="pic" open="(" separator="),(" close=")">
+            #{imedia},#{pic}
         </foreach>
-    </update>
+    </insert>
 
     <update id="putMedia">
         UPDATE t_media
@@ -52,12 +52,6 @@
         AND iuser = #{iuser}
     </update>
 
-    <delete id="DelMediaPics">
-        DELETE
-        FROM t_media_pics
-        WHERE imedia = #{imedia}
-    </delete>
-
     <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
     <select id="dayMedia">
         SELECT A.imedia, A.date, A.star, B.pic
@@ -73,7 +67,8 @@
         ) B
         ON A.imedia = B.imedia
         WHERE A.iuser = #{iuser}
-        AND A.date = '#{date}'
+        AND A.date = #{date}
+        AND del = 0
     </select>
 
     <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
@@ -90,7 +85,8 @@
         SELECT imedia, DATE
         FROM t_media
         WHERE iuser = #{iuser}
-        AND MONTH(date) = '#{ym}'
+        AND MONTH(date) = #{ym}
+        AND del = 0
     </select>
 
     <select id="selMediapic">
@@ -103,38 +99,34 @@
     </select>
 
     <select id="selMediaByDelMedia">
-        SELECT imedia FROM t_media
+        SELECT imedia
+        FROM t_media
         WHERE iuser = #{iuser}
         AND imedia = #{imedia}
+        AND del = 0
     </select>
 
     <delete id="delMediaPics">
-        DELETE FROM t_media
+        DELETE FROM t_media_pics
         WHERE imedia = #{imedia}
     </delete>
 
-    <insert id="postMediaPics">
-        INSERT INTO t_media_pics
-        (imedia, pic)
-        VALUES
-        <foreach collection="pics" item="pic" open="(" separator="),(" close=")">
-            #{imedia},#{pic}
-        </foreach>
-    </insert>
-
-    <delete id="delMedia">
-        DELETE FROM t_media
+    <update id="delMedia">
+        UPDATE t_media
+        SET del = 1
         WHERE imedia = #{imedia}
-        AND iuser = #{iuser}
-    </delete>
+        AND del = 0
+    </update>
 
     <select id="selMedia">
-        SELECT A.imedia, B.pic, A.star, A.comment
+        SELECT A.imedia, A.title, B.pic
+        , A.star, A.comment
         FROM t_media A
         JOIN t_media_pics B
         ON A.imedia = B.imedia
         WHERE A.is_saw = #{isSaw}
         AND A.iuser = #{iuser}
+        AND A.del = 0
         GROUP BY B.imedia
     </select>
 
@@ -143,6 +135,7 @@
         FROM t_media
         WHERE imedia = #{imedia}
         AND iuser = #{iuser}
+        AND del = 0
     </select>
 
     <select id="selMediaPics">

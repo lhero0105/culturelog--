@@ -27,7 +27,7 @@ public class MediaService {
         if (dto.getPics().size() >0){
             DelMediaDto dto1 = new DelMediaDto();
             dto1.setImedia(dto.getImedia());
-            mapper.DelMediaPics(dto1);
+            mapper.delMediaPics(dto1);
             InsMediaDto dto2 = new InsMediaDto();
             dto2.setImedia(dto.getImedia());
             dto2.setPics(dto.getPics());
@@ -107,8 +107,6 @@ public class MediaService {
             return new ResVo(Const.FAIL);
             // 없으면 리턴
         }
-        // 있으면 사진 삭제 후 미디어 삭제
-        mapper.delMediaPics(dto);
         mapper.delMedia(dto);
         return new ResVo(Const.SUCCESS);
     }

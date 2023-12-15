@@ -13,8 +13,8 @@ public class SwaggerConfiguration {
     public OpenAPI openAPI(){
         return new OpenAPI()
                 .components(new Components())
-                .info(new Info().title("movieflow Ver.1")
-                        .description("movieflow V1")
+                .info(new Info().title("culturelog Ver.1")
+                        .description("culturelog V1")
                         .version("1.0.0")
                 );
     }

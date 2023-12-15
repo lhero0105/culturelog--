@@ -15,7 +15,7 @@ public interface MediaMapper {
 
     int putMedia(PutMedia dto);
 
-    int DelMediaPics(DelMediaDto dto);
+    int delMediaPics(DelMediaDto dto);
 
     List<MediaDaySelVo> dayMedia(MediaDaySelDto dto);
 
@@ -23,7 +23,6 @@ public interface MediaMapper {
     List<SelMediaVo> selMediaAll(MidiaAllSelDto dto);
     List<SelMediaPicsProcVo> selMediapic(List<Integer> imediaList);
     Integer selMediaByDelMedia(DelMediaDto dto);
-    int delMediaPics(DelMediaDto dto);
     int delMedia(DelMediaDto dto);
     List<SelMediaAllProcVo> selMedia(SelMediaAllDto dto);
     SelMediaDetailVo selDetailMedia(SelMediaDto dto);
