@@ -1,13 +1,18 @@
 package com.green.movieflow.media.model;
 
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
-@Data
+@Builder
+@Getter
 public class SelMediaAllVo {
     private int imedia;
     private String title;
     private String date;
     private String pic;
-    private int star;
+    private MediaSawInfoVo sawInfo;
+    public void MediaSawInfoVo(MediaSawInfoVo vo){
+        this.sawInfo = vo;
+    }
 }

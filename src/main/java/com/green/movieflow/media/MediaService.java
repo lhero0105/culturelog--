@@ -17,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaMapper mapper;
-
+    // 미디어 추가
     public ResVo postMedia(InsMediaDto dto){
         mapper.insMedia(dto);
         return new ResVo(dto.getImedia());
@@ -71,9 +71,24 @@ public class MediaService {
 
     // 마이페이지
     public List<SelMediaAllVo> getMedia(SelMediaAllDto dto){
-        // 쿼리문으로 첫사진만 빼오도록 하여 다 담김
-        List<SelMediaAllVo> list = mapper.selMedia(dto);
-        return list;
+        List<SelMediaAllProcVo> list = mapper.selMedia(dto);
+        // sawInfo 안에 isSaw가 1일 때 사용되는 값을 저장하도록 했습니다.
+        List<SelMediaAllVo> allVo = new ArrayList<>();
+        for ( SelMediaAllProcVo pVo: list ) {
+            SelMediaAllVo vo = SelMediaAllVo.builder()
+                    .imedia(pVo.getImedia())
+                    .title(pVo.getTitle())
+                    .date(pVo.getDate())
+                    .pic(pVo.getPic())
+                    .build();
+            MediaSawInfoVo sawInfoVo = MediaSawInfoVo.builder()
+                    .star(pVo.getStar())
+                    .comment(pVo.getComment())
+                    .build();
+            vo.MediaSawInfoVo(sawInfoVo);
+            allVo.add(vo);
+        }
+        return allVo;
     }
 
     // 상세페이지

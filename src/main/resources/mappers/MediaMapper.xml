@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.movieflow.media.MediaMapper">
+    <!--미디어 추가-->
     <insert id="insMedia" useGeneratedKeys="true" keyProperty="imedia">
         INSERT INTO t_media
         SET iuser = #{iuser}
@@ -112,6 +113,15 @@
         WHERE imedia = #{imedia}
     </delete>
 
+    <insert id="postMediaPics">
+        INSERT INTO t_media_pics
+        (imedia, pic)
+        VALUES
+        <foreach collection="pics" item="pic" open="(" separator="),(" close=")">
+            #{imedia},#{pic}
+        </foreach>
+    </insert>
+
     <delete id="delMedia">
         DELETE FROM t_media
         WHERE imedia = #{imedia}
@@ -119,21 +129,17 @@
     </delete>
 
     <select id="selMedia">
-        SELECT A.imedia, A.title, A.date, A.star, B.pic
+        SELECT A.imedia, B.pic, A.star, A.comment
         FROM t_media A
-        JOIN (
-        SELECT imedia, pic
-        FROM t_media_pics
-        ORDER BY imedia_pics ASC
-        LIMIT 0,1
-        ) B
+        JOIN t_media_pics B
         ON A.imedia = B.imedia
-        WHERE A.iuser = #{iuser}
-        AND A.issaw = #{issaw}
+        WHERE A.is_saw = #{isSaw}
+        AND A.iuser = #{iuser}
+        GROUP BY B.imedia
     </select>
 
     <select id="selDetailMedia">
-        SELECT imedia, title, comment, date, issaw, star
+        SELECT imedia, title, comment, date, issaw, star, genrepk as genrePk
         FROM t_media
         WHERE imedia = #{imedia}
         AND iuser = #{iuser}

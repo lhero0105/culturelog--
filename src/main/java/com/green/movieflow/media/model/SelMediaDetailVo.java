@@ -9,6 +9,7 @@ public class SelMediaDetailVo {
     private int imedia;
     private String title;
     private String comment;
+    private int genrePk;
     private String date;
     private List<String> pics;
     private int issaw;

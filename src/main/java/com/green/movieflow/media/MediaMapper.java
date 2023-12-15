@@ -4,11 +4,10 @@ import com.green.movieflow.media.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface MediaMapper {
-
+    // 미디어 추가
     int insMedia(InsMediaDto dto);
     int insMediaPics(InsMediaDto dto);
 
@@ -26,7 +25,7 @@ public interface MediaMapper {
     Integer selMediaByDelMedia(DelMediaDto dto);
     int delMediaPics(DelMediaDto dto);
     int delMedia(DelMediaDto dto);
-    List<SelMediaAllVo> selMedia(SelMediaAllDto dto);
+    List<SelMediaAllProcVo> selMedia(SelMediaAllDto dto);
     SelMediaDetailVo selDetailMedia(SelMediaDto dto);
     List<String> selMediaPics(SelMediaDto dto);
 }
