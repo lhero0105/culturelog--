@@ -17,35 +17,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MediaService {
     private final MediaMapper mapper;
-    // 미디어 추가
-    public ResVo postMedia(InsMediaDto dto){
-        mapper.insMedia(dto);
-        return new ResVo(dto.getImedia());
-    }
-    public ResVo putMedia(PutMedia dto){
-        mapper.putMedia(dto);
-        if (dto.getPics().size() >0){
-            DelMediaDto dto1 = new DelMediaDto();
-            dto1.setImedia(dto.getImedia());
-            mapper.delMediaPics(dto1);
-            InsMediaDto dto2 = new InsMediaDto();
-            dto2.setImedia(dto.getImedia());
-            dto2.setPics(dto.getPics());
-            mapper.insMediaPics(dto2);
-        }
-        return new ResVo(Const.SUCCESS);
-    }
-
-    public List<MediaDaySelVo> getDayMedia(MediaDaySelDto dto){
-        List<MediaDaySelVo> list = mapper.dayMedia(dto);
-        log.info("list : {}", list);
-        return list;
-    }
-
-    public ResVo patchIsSaw(MediaPatIsSawDto dto){
-        return new ResVo(mapper.patchIsSaw(dto));
-    }
-    //-----------------------------------------------------
 
     // 메인페이지
     public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
@@ -70,10 +41,17 @@ public class MediaService {
         return list;
     }
 
+    // 날짜별 media리스트
+    public List<MediaDaySelVo> getDayMedia(MediaDaySelDto dto){
+        List<MediaDaySelVo> list = mapper.dayMedia(dto);
+        log.info("list : {}", list);
+        return list;
+    }
+
     // 마이페이지
     public List<SelMediaAllVo> getMedia(SelMediaAllDto dto){
         List<SelMediaAllProcVo> list = mapper.selMedia(dto);
-        // sawInfo 안에 isSaw가 1일 때 사용되는 값을 저장하도록 했습니다.
+        // sawInfo 안에는 isSaw가 1일 때 사용되는 값을 저장하도록 했습니다.
         List<SelMediaAllVo> allVo = new ArrayList<>();
         for ( SelMediaAllProcVo pVo: list ) {
             SelMediaAllVo vo = SelMediaAllVo.builder()
@@ -99,6 +77,32 @@ public class MediaService {
         List<String> pics = mapper.selMediaPics(dto);
         vo.setPics(pics);
         return vo;
+    }
+
+    // 미디어 등록
+    public ResVo postMedia(InsMediaDto dto){
+        mapper.insMedia(dto);
+        return new ResVo(dto.getImedia());
+    }
+
+    // 시청여부 수정
+    public ResVo patchIsSaw(MediaPatIsSawDto dto){
+        return new ResVo(mapper.patchIsSaw(dto));
+    }
+
+    // 미디어 수정
+    public ResVo putMedia(PutMedia dto){
+        mapper.putMedia(dto);
+        if (dto.getPics().size() >0){
+            DelMediaDto dto1 = new DelMediaDto();
+            dto1.setImedia(dto.getImedia());
+            mapper.delMediaPics(dto1);
+            InsMediaDto dto2 = new InsMediaDto();
+            dto2.setImedia(dto.getImedia());
+            dto2.setPics(dto.getPics());
+            mapper.insMediaPics(dto2);
+        }
+        return new ResVo(Const.SUCCESS);
     }
 
     // media 삭제

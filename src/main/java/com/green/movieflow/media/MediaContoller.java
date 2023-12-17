@@ -18,44 +18,21 @@ import java.util.List;
 public class MediaContoller {
     private final MediaService service;
 
-    // 미디어 등록
-    @PostMapping
-    @Operation(summary = "미디어 등록",description = "미디어 등록")
-    public ResVo postMedia(@RequestBody InsMediaDto dto){
-        return service.postMedia(dto);
-    }
-
-    // 미디어 수정
-    @PutMapping
-    @Operation(summary = "미디어 수정",description = "미디어 수정")
-    public ResVo putMedia(@RequestBody PutMedia dto){
-        return service.putMedia(dto);
-    }
-
-    // iuser, date
-    @GetMapping("/day")
-    @Operation(summary = "날짜별 미디어 리스트",description = "날짜별 미디어 리스트")
-    public List<MediaDaySelVo> getDayMedia(int iuser, String date){
-        return service.getDayMedia(MediaDaySelDto.builder()
-                        .iuser(iuser)
-                        .date(date)
-                        .build());
-    }
-
-    // issaw, imedia, iuser
-    @PatchMapping
-    @Operation(summary = "시청여부 수정",description = "시청여부 수정")
-    public ResVo patchIsSaw(MediaPatIsSawDto dto){
-        return service.patchIsSaw(dto);
-    }
-
-    //----------------------------------------------------------
-
     // 메인페이지
     @GetMapping("/ym")
     @Operation(summary = "메인페이지",description = "메인페이지")
     public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
         return service.getMediaAll(dto);
+    }
+
+    // 날짜별 media리스트
+    @GetMapping("/day")
+    @Operation(summary = "날짜별 미디어 리스트",description = "날짜별 미디어 리스트")
+    public List<MediaDaySelVo> getDayMedia(int iuser, String date){
+        return service.getDayMedia(MediaDaySelDto.builder()
+                .iuser(iuser)
+                .date(date)
+                .build());
     }
 
     // 마이페이지
@@ -75,7 +52,28 @@ public class MediaContoller {
                 .build());
     }
 
-    // 미디어삭제
+    // 미디어 등록
+    @PostMapping
+    @Operation(summary = "미디어 등록",description = "미디어 등록")
+    public ResVo postMedia(@RequestBody InsMediaDto dto){
+        return service.postMedia(dto);
+    }
+
+    // 시청여부 수정
+    @PatchMapping
+    @Operation(summary = "시청여부 수정",description = "시청여부 수정")
+    public ResVo patchIsSaw(MediaPatIsSawDto dto){
+        return service.patchIsSaw(dto);
+    }
+
+    // 미디어 수정
+    @PutMapping
+    @Operation(summary = "미디어 수정",description = "미디어 수정")
+    public ResVo putMedia(@RequestBody PutMedia dto){
+        return service.putMedia(dto);
+    }
+
+    // 미디어 삭제
     @DeleteMapping
     @Operation(summary = "미디어삭제",description = "미디어삭제")
     public ResVo delMedia(DelMediaDto dto){
