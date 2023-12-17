@@ -12,7 +12,8 @@ public class SelMediaAllVo {
     private String date;
     private String pic;
     private MediaSawInfoVo sawInfo;
-    public void MediaSawInfoVo(MediaSawInfoVo vo){
-        this.sawInfo = vo;
+
+    public void setSawInfo(MediaSawInfoVo sawInfo) {
+        this.sawInfo = sawInfo;
     }
 }

@@ -8,7 +8,7 @@ public class SelMediaAllProcVo {
     private String title;
     private String date;
     private String pic;
-    private int star; // 본 것
+    private Integer star; // 본 것
     private String comment; // 본 것
 }
 

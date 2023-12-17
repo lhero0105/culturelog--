@@ -37,7 +37,9 @@ public class MediaService {
     }
 
     public List<MediaDaySelVo> getDayMedia(MediaDaySelDto dto){
-        return mapper.dayMedia(dto);
+        List<MediaDaySelVo> list = mapper.dayMedia(dto);
+        log.info("list : {}", list);
+        return list;
     }
 
     public ResVo patchIsSaw(MediaPatIsSawDto dto){
@@ -48,6 +50,7 @@ public class MediaService {
     // 메인페이지
     public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
         List<SelMediaVo> list = mapper.selMediaAll(dto);
+
         List<Integer> imediaList = new ArrayList<>();
         HashMap<Integer, SelMediaVo> mediaMap = new HashMap<>();
         for ( SelMediaVo vo : list ) {
@@ -56,9 +59,7 @@ public class MediaService {
         }
         List<SelMediaPicsProcVo> pics = mapper.selMediapic(imediaList);
         for ( SelMediaPicsProcVo pic : pics ) {
-            SelMediaVo vo = mediaMap.get(pic.getImedia());
-            List<String> strpics = vo.getPics();
-            strpics.add(pic.getPic());
+            mediaMap.get(pic.getImedia()).getPics().add(pic.getPic());
         }
         for ( SelMediaVo vo : list ) {
             while (vo.getPics().size() > 1){
@@ -81,11 +82,12 @@ public class MediaService {
                     .date(pVo.getDate())
                     .pic(pVo.getPic())
                     .build();
-            MediaSawInfoVo sawInfoVo = MediaSawInfoVo.builder()
-                    .star(pVo.getStar())
-                    .comment(pVo.getComment())
-                    .build();
-            vo.MediaSawInfoVo(sawInfoVo);
+            if(pVo.getStar() != null){
+                MediaSawInfoVo sawInfoVo = new MediaSawInfoVo();
+                sawInfoVo.setStar(pVo.getStar());
+                sawInfoVo.setComment(pVo.getComment());
+                vo.setSawInfo(sawInfoVo);
+            }
             allVo.add(vo);
         }
         return allVo;

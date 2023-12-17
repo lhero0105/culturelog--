@@ -33,8 +33,8 @@ public class MediaContoller {
     }
 
     // iuser, date
-    @GetMapping("day")
-    @Operation(summary = "일자별 미디어 리스트",description = "일자별 미디어 리스트")
+    @GetMapping("/day")
+    @Operation(summary = "날짜별 미디어 리스트",description = "날짜별 미디어 리스트")
     public List<MediaDaySelVo> getDayMedia(int iuser, String date){
         return service.getDayMedia(MediaDaySelDto.builder()
                         .iuser(iuser)

@@ -12,7 +12,7 @@
         <if test="star > 0">
             , star = #{star}
         </if>
-        <if test="comment != null">
+        <if test="comment != null and comment != ''">
             , comment = #{comment}
         </if>
         , is_saw = #{isSaw}
@@ -52,7 +52,6 @@
         AND iuser = #{iuser}
     </update>
 
-    <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
     <select id="dayMedia">
         SELECT A.imedia, A.date, A.star, B.pic
         FROM t_media A
@@ -62,7 +61,7 @@
             JOIN t_media B
             ON A.imedia = B.imedia
             WHERE B.iuser = #{iuser}
-            AND B.date = '#{date}'
+            AND B.date = #{date}
             GROUP BY A.imedia
         ) B
         ON A.imedia = B.imedia
@@ -71,7 +70,6 @@
         AND del = 0
     </select>
 
-    <!--보류사유 - dto 받을 값 추가해야 한다고 생각-->
     <update id="patchIsSaw">
         UPDATE t_media
         SET is_saw = #{isSaw}
@@ -82,10 +80,10 @@
     <!-- ///////////////////////////////////////////////////////// -->
 
     <select id="selMediaAll">
-        SELECT imedia, DATE
+        SELECT imedia, date
         FROM t_media
         WHERE iuser = #{iuser}
-        AND MONTH(date) = #{ym}
+        AND date_format(date, '%Y-%m') = #{ym}
         AND del = 0
     </select>
 
