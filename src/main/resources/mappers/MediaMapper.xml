@@ -2,7 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.movieflow.media.MediaMapper">
-    <!--미디어 추가-->
+
+    <!--메인페이지-->
+    <select id="selMediaAll">
+        SELECT imedia, date
+        FROM t_media
+        WHERE iuser = #{iuser}
+        AND date_format(date, '%Y-%m') = #{ym}
+        AND del = 0
+    </select>
+    <select id="selMediapic">
+        SELECT imedia, pic FROM t_media_pics
+        WHERE imedia in (
+        <foreach collection="imediaList" item="imedia" separator=",">
+            #{imedia}
+        </foreach>
+        )
+    </select>
+
+    <!--날짜별 media리스트-->
+    <select id="dayMedia">
+        SELECT A.imedia, A.date, A.star, B.pic
+        FROM t_media A
+        JOIN (
+        SELECT B.imedia, A.pic
+        FROM t_media_pics A
+        JOIN t_media B
+        ON A.imedia = B.imedia
+        WHERE B.iuser = #{iuser}
+        AND B.date = #{date}
+        GROUP BY A.imedia
+        ) B
+        ON A.imedia = B.imedia
+        WHERE A.iuser = #{iuser}
+        AND A.date = #{date}
+        AND del = 0
+    </select>
+
+    <!--마이페이지-->
+    <select id="selMedia">
+        SELECT A.imedia, A.title, B.pic
+        , A.star, A.comment
+        FROM t_media A
+        JOIN t_media_pics B
+        ON A.imedia = B.imedia
+        WHERE A.is_saw = #{isSaw}
+        AND A.iuser = #{iuser}
+        AND A.del = 0
+        GROUP BY B.imedia
+    </select>
+
+    <!--상세페이지-->
+    <select id="selDetailMedia">
+        SELECT imedia, title, comment, date, issaw, star, genrepk as genrePk
+        FROM t_media
+        WHERE imedia = #{imedia}
+        AND iuser = #{iuser}
+        AND del = 0
+    </select>
+    <select id="selMediaPics">
+        SELECT pic FROM t_media_pics
+        WHERE imedia = #{imedia}
+    </select>
+
+    <!--미디어 등록-->
     <insert id="insMedia" useGeneratedKeys="true" keyProperty="imedia">
         INSERT INTO t_media
         SET iuser = #{iuser}
@@ -18,15 +81,15 @@
         , is_saw = #{isSaw}
     </insert>
 
-    <insert id="postMediaPics">
-        INSERT INTO t_media_pics
-        (imedia, pic)
-        VALUES
-        <foreach collection="pics" item="pic" open="(" separator="),(" close=")">
-            #{imedia},#{pic}
-        </foreach>
-    </insert>
+    <!--시청여부 수정-->
+    <update id="patchIsSaw">
+        UPDATE t_media
+        SET is_saw = #{isSaw}
+        WHERE imedia = #{imedia}
+        AND iuser = #{iuser}
+    </update>
 
+    <!--미디어 수정-->
     <update id="putMedia">
         UPDATE t_media
         SET
@@ -51,51 +114,20 @@
         WHERE imedia = #{imedia}
         AND iuser = #{iuser}
     </update>
-
-    <select id="dayMedia">
-        SELECT A.imedia, A.date, A.star, B.pic
-        FROM t_media A
-        JOIN (
-            SELECT B.imedia, A.pic
-            FROM t_media_pics A
-            JOIN t_media B
-            ON A.imedia = B.imedia
-            WHERE B.iuser = #{iuser}
-            AND B.date = #{date}
-            GROUP BY A.imedia
-        ) B
-        ON A.imedia = B.imedia
-        WHERE A.iuser = #{iuser}
-        AND A.date = #{date}
-        AND del = 0
-    </select>
-
-    <update id="patchIsSaw">
-        UPDATE t_media
-        SET is_saw = #{isSaw}
+    <delete id="delMediaPics">
+        DELETE FROM t_media_pics
         WHERE imedia = #{imedia}
-        AND iuser = #{iuser}
-    </update>
-
-    <!-- ///////////////////////////////////////////////////////// -->
-
-    <select id="selMediaAll">
-        SELECT imedia, date
-        FROM t_media
-        WHERE iuser = #{iuser}
-        AND date_format(date, '%Y-%m') = #{ym}
-        AND del = 0
-    </select>
-
-    <select id="selMediapic">
-        SELECT imedia, pic FROM t_media_pics
-        WHERE imedia in (
-        <foreach collection="imediaList" item="imedia" separator=",">
-            #{imedia}
+    </delete>
+    <insert id="insMediaPics">
+        INSERT INTO t_media_pics
+        (imedia, pic)
+        VALUES
+        <foreach collection="pics" item="pic" open="(" separator="),(" close=")">
+            #{imedia},#{pic}
         </foreach>
-        )
-    </select>
+    </insert>
 
+    <!--media 삭제-->
     <select id="selMediaByDelMedia">
         SELECT imedia
         FROM t_media
@@ -103,42 +135,10 @@
         AND imedia = #{imedia}
         AND del = 0
     </select>
-
-    <delete id="delMediaPics">
-        DELETE FROM t_media_pics
-        WHERE imedia = #{imedia}
-    </delete>
-
     <update id="delMedia">
         UPDATE t_media
         SET del = 1
         WHERE imedia = #{imedia}
         AND del = 0
     </update>
-
-    <select id="selMedia">
-        SELECT A.imedia, A.title, B.pic
-        , A.star, A.comment
-        FROM t_media A
-        JOIN t_media_pics B
-        ON A.imedia = B.imedia
-        WHERE A.is_saw = #{isSaw}
-        AND A.iuser = #{iuser}
-        AND A.del = 0
-        GROUP BY B.imedia
-    </select>
-
-    <select id="selDetailMedia">
-        SELECT imedia, title, comment, date, issaw, star, genrepk as genrePk
-        FROM t_media
-        WHERE imedia = #{imedia}
-        AND iuser = #{iuser}
-        AND del = 0
-    </select>
-
-    <select id="selMediaPics">
-        SELECT pic FROM t_media_pics
-        WHERE imedia = #{imedia}
-    </select>
-
 </mapper>

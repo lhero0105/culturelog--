@@ -13,7 +13,7 @@ public interface MediaMapper {
     List<SelMediaPicsProcVo> selMediapic(List<Integer> imediaList);
 
     // 날짜별 media리스트
-    int delMedia(DelMediaDto dto);
+    List<MediaDaySelVo> dayMedia(MediaDaySelDto dto);
 
     // 마이페이지
     List<SelMediaAllProcVo> selMedia(SelMediaAllDto dto);
@@ -35,5 +35,5 @@ public interface MediaMapper {
 
     // media 삭제
     Integer selMediaByDelMedia(DelMediaDto dto);
-    List<MediaDaySelVo> dayMedia(MediaDaySelDto dto);
+    int delMedia(DelMediaDto dto);
 }
