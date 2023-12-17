@@ -21,7 +21,8 @@ public class MediaService {
     // 메인페이지
     public List<SelMediaVo> getMediaAll(MidiaAllSelDto dto){
         List<SelMediaVo> list = mapper.selMediaAll(dto);
-
+        // 사진을 모두 셀렉 해 와 n+1 처리 하였으며 마지막에 사진 삭제 해 주었습니다.
+        // n+1 작업을 하기 위해 사진을 빼와 성능이 나쁩니다.
         List<Integer> imediaList = new ArrayList<>();
         HashMap<Integer, SelMediaVo> mediaMap = new HashMap<>();
         for ( SelMediaVo vo : list ) {
@@ -61,7 +62,7 @@ public class MediaService {
                     .pic(pVo.getPic())
                     .build();
             if(pVo.getStar() != null){
-                // 스웨거 꾸미기 작업
+                // 스웨거 꾸미기 작업 입니다. 성능이 살짝 나빠집니다.
                 // star, comment 가 있다면 객체 생성
                 MediaSawInfoVo sawInfoVo = new MediaSawInfoVo();
                 sawInfoVo.setStar(pVo.getStar());
@@ -94,8 +95,9 @@ public class MediaService {
 
     // 미디어 수정
     public ResVo putMedia(PutMedia dto){
+        // 사진 제외 수정
         mapper.putMedia(dto);
-        // 사진 따로 수정 모두 삭제 후 등록
+        // 사진 따로 수정, 모두 삭제 후 등록
         if (dto.getPics().size() >0){
             DelMediaDto dto1 = new DelMediaDto();
             dto1.setImedia(dto.getImedia());
@@ -110,11 +112,10 @@ public class MediaService {
 
     // media 삭제
     public ResVo delMedia(DelMediaDto dto){
-        // select로 있는지 확인 먼저
+        // select로 있는지 확인 후 삭제
         Integer imedia = mapper.selMediaByDelMedia(dto);
         if(imedia == null){
             return new ResVo(Const.FAIL);
-            // 없으면 리턴
         }
         mapper.delMedia(dto);
         return new ResVo(Const.SUCCESS);
