@@ -54,7 +54,7 @@
 
     <!--상세페이지-->
     <select id="selDetailMedia">
-        SELECT imedia, title, comment, date, issaw, star, genrepk as genrePk
+        SELECT imedia, title, comment, date, is_saw AS issaw, star, genrepk as genrePk
         FROM t_media
         WHERE imedia = #{imedia}
         AND iuser = #{iuser}
